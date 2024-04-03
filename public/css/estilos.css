@@ -88,10 +88,36 @@ h1 {
     background-color: #0056b3;
 }
 
+.botonNuevaTarea{
+    margin-left: 100px;
+}
+.botonNuevaTarea button{
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 250px;
+}
+
+.tabla{
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5%;
+
+}
+
 
 
 table {
     width: 100%;
+    height: 100px;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
@@ -99,7 +125,7 @@ table {
 table th, table td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
 
 table th {
