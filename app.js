@@ -20,6 +20,16 @@ app.use('/tareas', tareasRouter);
 // Configuración de la carpeta de archivos estáticos (si es necesario)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Configurar el motor de plantillas EJS
+app.set('view engine', 'ejs');
+// Configurar el directorio de vistas
+app.set('views', path.join(__dirname, 'views', 'pages'));
+
+// Ruta para renderizar el archivo index.ejs
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
 // Manejador de errores para rutas no encontradas
 app.use((req, res, next) => {
   const error = new Error('Ruta no encontrada');
@@ -41,4 +51,5 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor Express en funcionamiento en el puerto ${PORT}`);
+  console.log(path.join(__dirname, 'views', 'pages'));
 });

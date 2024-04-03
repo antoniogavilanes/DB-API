@@ -1,13 +1,53 @@
 <!-- views/pages/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Crear Tarea</title>
+    <link rel="stylesheet" href="/css/estilos.css"> <!-- Si tienes estilos CSS personalizados -->
 </head>
+
 <body>
-    <h1>Bienvenido a mi aplicación</h1>
-    <!-- Contenido de la página de inicio -->
+    <h1>Crear Nueva Tarea</h1>
+    <form id="formCrearTarea">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required></textarea>
+        <button type="submit">Agregar Tarea</button>
+    </form>
+
+    <script>
+        
+        // Manejo del formulario
+        document.getElementById('formCrearTarea').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const nombre = formData.get('nombre');
+            const descripcion = formData.get('descripcion');
+
+            try {
+                const response = await fetch('/tareas', { // Modifica la URL de la solicitud POST
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, descripcion })
+                });
+                if (!response.ok) {
+                    throw new Error('No se pudo agregar la tarea');
+                }
+                alert('Tarea agregada correctamente');
+                // Puedes redirigir a otra página si lo deseas
+                window.location.href = '/'; // Redirige a la página principal
+            } catch (error) {
+                console.error(error);
+                alert('Error al agregar la tarea');
+            }
+        });
+    </script>
 </body>
+
 </html>
