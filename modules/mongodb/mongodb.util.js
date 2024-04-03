@@ -12,7 +12,7 @@ const handleMongoError = (error) => {
       handleMongoError(error);
     }
   };
+
   
-  // Exportamos las funciones que deseamos hacer disponibles desde fuera del archivo
   module.exports = { handleMongoError, closeDatabaseConnection };
   
