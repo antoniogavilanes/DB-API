@@ -1,13 +1,13 @@
-// Importar el modelo de tarea si es necesario
+
 const Tarea = require('../../models/tarea.model');
 
-// Controlador para actualizar una tarea existente
+
 exports.actualizarTarea = async (req, res) => {
   try {
     const { id } = req.params;
-    const tareaActualizada = req.body; // Datos de la tarea actualizada
+    const tareaActualizada = req.body; 
 
-    // Actualizar la tarea en la base de datos
+
     const tarea = await Tarea.findByIdAndUpdate(id, tareaActualizada, { new: true });
 
     if (!tarea) {
@@ -21,12 +21,12 @@ exports.actualizarTarea = async (req, res) => {
   }
 };
 
-// Controlador para eliminar una tarea existente
+
 exports.eliminarTarea = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Eliminar la tarea de la base de datos
+
     const tarea = await Tarea.findByIdAndDelete(id);
 
     if (!tarea) {
@@ -40,12 +40,12 @@ exports.eliminarTarea = async (req, res) => {
   }
 };
 
-// Controlador para obtener una tarea por ID
+
 exports.obtenerTareaPorId = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Buscar la tarea en la base de datos
+
     const tarea = await Tarea.findById(id);
 
     if (!tarea) {
@@ -59,10 +59,10 @@ exports.obtenerTareaPorId = async (req, res) => {
   }
 };
 
-// Controlador para obtener todas las tareas
+
 exports.obtenerTodasLasTareas = async (req, res) => {
   try {
-    // Obtener todas las tareas de la base de datos
+
     const tareas = await Tarea.find();
 
     res.json(tareas);
@@ -72,16 +72,21 @@ exports.obtenerTodasLasTareas = async (req, res) => {
   }
 };
 
-// Controlador para crear una nueva tarea
+
 
 exports.crearTarea = async (req, res) => {
   try {
-    const nuevaTarea = req.body; // Datos de la nueva tarea
+    const { nombre, descripcion } = req.body;
 
-    // Crear una nueva tarea en la base de datos
-    const tarea = await Tarea.create(nuevaTarea);
 
-    res.status(201).json(tarea);
+    if (!nombre || !descripcion) {
+      return res.status(400).json({ error: 'El nombre y la descripción son obligatorios' });
+    }
+
+
+    const tarea = await Tarea.create({ nombre, descripcion });
+
+    res.status(201).json({ mensaje: 'Tarea creada correctamente', tarea });
   } catch (error) {
     console.error('Error al crear la tarea:', error);
     res.status(500).json({ error: 'Error al crear la tarea' });

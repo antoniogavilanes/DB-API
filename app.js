@@ -2,16 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { connectToDatabase } = require('./modules/mongodb/mongodb.module');
 
 // Crear una instancia de la aplicación Express
 const app = express();
 
-// Conexión a la base de datos MongoDB
-connectToDatabase();
-
 // Middleware para parsear solicitudes JSON
 app.use(bodyParser.json());
+
+// Conexión a la base de datos MongoDB
+const { connectToDatabase } = require('./modules/mongodb/mongodb.module');
+connectToDatabase();
 
 // Definir las rutas de la API
 const tareasRouter = require('./routes/tareas');
@@ -51,5 +51,4 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor Express en funcionamiento en el puerto ${PORT}`);
-  console.log(path.join(__dirname, 'views', 'pages'));
 });
