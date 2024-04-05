@@ -7,7 +7,38 @@
     <title>Mi API Tareas</title>
     <link rel="stylesheet" href="/css/estilos.css">
     <style>
+<<<<<<< HEAD
        
+=======
+        .contenedor-tarjetas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tarjeta {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .tarjeta h3 {
+            margin-top: 0;
+        }
+
+        .tarjeta p {
+            margin-bottom: 5px;
+        }
+
+        .acciones {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .acciones button {
+            margin-right: 5px;
+        }
+>>>>>>> 78dfbfe0b10de7b943dd3294d509c9e0baf212f2
     </style>
 </head>
 
@@ -84,10 +115,15 @@
                 tareas.forEach(tarea => {
                     const tarjeta = `
                         <div class="tarjeta">
+<<<<<<< HEAD
                             <h3 style="text-align: center;">${tarea.nombre}</h3>
                             <div class="descpicionTarjeta">
                             <p style="text-align: justify;">${tarea.descripcion}</p>
                             </div>
+=======
+                            <h3>${tarea.nombre}</h3>
+                            <p>${tarea.descripcion}</p>
+>>>>>>> 78dfbfe0b10de7b943dd3294d509c9e0baf212f2
                             <div class="acciones">
                                 <button onclick="mostrarFormularioEditarTarea('${tarea._id}', '${tarea.nombre}', '${tarea.descripcion}')">Editar</button>
                                 <button onclick="eliminarTarea('${tarea._id}')">Eliminar</button>

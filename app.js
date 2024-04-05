@@ -13,9 +13,12 @@ app.use(bodyParser.json());
 const { connectToDatabase } = require('./modules/mongodb/mongodb.module');
 connectToDatabase();
 
+<<<<<<< HEAD
 const responsablesRoutes = require('./routes/responsables');
 app.use('/responsables', responsablesRoutes);
 
+=======
+>>>>>>> 78dfbfe0b10de7b943dd3294d509c9e0baf212f2
 // Definir las rutas de la API
 const tareasRouter = require('./routes/tareas');
 app.use('/tareas', tareasRouter);
