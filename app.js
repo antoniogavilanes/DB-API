@@ -13,6 +13,9 @@ app.use(bodyParser.json());
 const { connectToDatabase } = require('./modules/mongodb/mongodb.module');
 connectToDatabase();
 
+const responsablesRoutes = require('./routes/responsables');
+app.use('/responsables', responsablesRoutes);
+
 // Definir las rutas de la API
 const tareasRouter = require('./routes/tareas');
 app.use('/tareas', tareasRouter);

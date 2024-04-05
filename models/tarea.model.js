@@ -9,7 +9,10 @@ const tareaSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-
+  responsable: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'responsable'
+  }
 });
 
 

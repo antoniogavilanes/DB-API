@@ -63,7 +63,7 @@ exports.obtenerTareaPorId = async (req, res) => {
 exports.obtenerTodasLasTareas = async (req, res) => {
   try {
 
-    const tareas = await Tarea.find();
+    const tareas = await Tarea.find().populate('responsable');
 
     res.json(tareas);
   } catch (error) {
