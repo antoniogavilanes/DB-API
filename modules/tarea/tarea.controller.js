@@ -1,12 +1,10 @@
-
 const Tarea = require('../../models/tarea.model');
-
+const Responsable = require('../../models/responsable.model');
 
 exports.actualizarTarea = async (req, res) => {
   try {
     const { id } = req.params;
     const tareaActualizada = req.body; 
-
 
     const tarea = await Tarea.findByIdAndUpdate(id, tareaActualizada, { new: true });
 
@@ -21,11 +19,9 @@ exports.actualizarTarea = async (req, res) => {
   }
 };
 
-
 exports.eliminarTarea = async (req, res) => {
   try {
     const { id } = req.params;
-
 
     const tarea = await Tarea.findByIdAndDelete(id);
 
@@ -40,11 +36,9 @@ exports.eliminarTarea = async (req, res) => {
   }
 };
 
-
 exports.obtenerTareaPorId = async (req, res) => {
   try {
     const { id } = req.params;
-
 
     const tarea = await Tarea.findById(id);
 
@@ -59,12 +53,9 @@ exports.obtenerTareaPorId = async (req, res) => {
   }
 };
 
-
 exports.obtenerTodasLasTareas = async (req, res) => {
   try {
-
     const tareas = await Tarea.find();
-
     res.json(tareas);
   } catch (error) {
     console.error('Error al obtener las tareas:', error);
@@ -72,23 +63,26 @@ exports.obtenerTodasLasTareas = async (req, res) => {
   }
 };
 
-
-
 exports.crearTarea = async (req, res) => {
   try {
-    const { nombre, descripcion } = req.body;
+    const { nombre, descripcion, responsableNombre, responsableApellido } = req.body;
 
-
-    if (!nombre || !descripcion) {
-      return res.status(400).json({ error: 'El nombre y la descripción son obligatorios' });
+    if (!nombre || !descripcion || !responsableNombre || !responsableApellido) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
+    let responsable = await Responsable.findOne({ nombre: responsableNombre, apellido: responsableApellido });
 
-    const tarea = await Tarea.create({ nombre, descripcion });
+    if (!responsable) {
+      responsable = new Responsable({ nombre: responsableNombre, apellido: responsableApellido });
+      await responsable.save();
+    }
 
-    res.status(201).json({ mensaje: 'Tarea creada correctamente', tarea });
+    const nuevaTarea = await Tarea.create({ nombre, descripcion, responsable: responsable._id });
+
+    res.status(201).json({ mensaje: 'Tarea creada correctamente', tarea: nuevaTarea });
   } catch (error) {
     console.error('Error al crear la tarea:', error);
     res.status(500).json({ error: 'Error al crear la tarea' });
   }
-}
+};
