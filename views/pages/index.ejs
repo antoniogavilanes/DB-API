@@ -7,38 +7,7 @@
     <title>Mi API Tareas</title>
     <link rel="stylesheet" href="/css/estilos.css">
     <style>
-<<<<<<< HEAD
-       
-=======
-        .contenedor-tarjetas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
 
-        .tarjeta {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-        }
-
-        .tarjeta h3 {
-            margin-top: 0;
-        }
-
-        .tarjeta p {
-            margin-bottom: 5px;
-        }
-
-        .acciones {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .acciones button {
-            margin-right: 5px;
-        }
->>>>>>> 78dfbfe0b10de7b943dd3294d509c9e0baf212f2
     </style>
 </head>
 
@@ -54,9 +23,9 @@
             <label for="nombre">Título:</label>
             <input type="text" id="nombre" name="nombre" required>
             <label for="descripcion">Descripción:</label>
-            <input id="descripcion" name="descripcion" required>
-            <button type="submit">Agregar Tarea</button>
-            <button type="button" id="btnCancelar">Cancelar</button>
+            <input type="text" id="descripcion" name="descripcion" required>
+            <button type="submit">Agregar Tarea <i class="fa-solid fa-floppy-disk"></i></button>
+            <button type="button" id="btnCancelar">Cancelar <i class="fa-solid fa-ban"></i></button>
         </form>
     </div>
 
@@ -66,9 +35,9 @@
             <label for="nombreEditar">Título:</label>
             <input type="text" id="nombreEditar" name="nombreEditar" required>
             <label for="descripcionEditar">Descripción:</label>
-            <input id="descripcionEditar" name="descripcionEditar" required>
-            <button type="submit">Guardar Cambios</button>
-            <button type="button" id="btnCancelarEdicion">Cancelar</button>
+            <input type="text" id="descripcionEditar" name="descripcionEditar" required>
+            <button type="submit">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
+            <button type="button" id="btnCancelarEdicion">Cancelar <i class="fa-solid fa-ban"></i></button>
         </form>
     </div>
 
@@ -76,7 +45,11 @@
         <!-- Aquí se mostrarán las tarjetas de las tareas -->
     </div>
 
+    <script src="https://kit.fontawesome.com/6e97ee2de1.js" crossorigin="anonymous"></script>
+
     <script>
+
+
         function mostrarFormularioNuevaTarea() {
             document.getElementById('formularioNuevaTarea').style.display = 'block';
         }
@@ -115,18 +88,13 @@
                 tareas.forEach(tarea => {
                     const tarjeta = `
                         <div class="tarjeta">
-<<<<<<< HEAD
                             <h3 style="text-align: center;">${tarea.nombre}</h3>
                             <div class="descpicionTarjeta">
                             <p style="text-align: justify;">${tarea.descripcion}</p>
                             </div>
-=======
-                            <h3>${tarea.nombre}</h3>
-                            <p>${tarea.descripcion}</p>
->>>>>>> 78dfbfe0b10de7b943dd3294d509c9e0baf212f2
                             <div class="acciones">
-                                <button onclick="mostrarFormularioEditarTarea('${tarea._id}', '${tarea.nombre}', '${tarea.descripcion}')">Editar</button>
-                                <button onclick="eliminarTarea('${tarea._id}')">Eliminar</button>
+                                <button onclick="mostrarFormularioEditarTarea('${tarea._id}', '${tarea.nombre}', '${tarea.descripcion}')">Editar <i class="fas fa-edit"></i></button>
+                                <button onclick="eliminarTarea('${tarea._id}')">Eliminar  <i class="fas fa-trash"></i></button>
                             </div>
                         </div>
                     `;
