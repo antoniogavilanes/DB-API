@@ -4,20 +4,36 @@ const Responsable = require('../../models/responsable.model');
 exports.actualizarTarea = async (req, res) => {
   try {
     const { id } = req.params;
-    const tareaActualizada = req.body; 
+    const { nombre, descripcion, responsableNombre, responsableApellido } = req.body;
 
-    const tarea = await Tarea.findByIdAndUpdate(id, tareaActualizada, { new: true });
+    if (!nombre || !descripcion || !responsableNombre || !responsableApellido) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
 
-    if (!tarea) {
+    let responsable = await Responsable.findOne({ nombre: responsableNombre, apellido: responsableApellido });
+
+    if (!responsable) {
+      responsable = new Responsable({ nombre: responsableNombre, apellido: responsableApellido });
+      await responsable.save();
+    }
+
+    const tareaActualizada = await Tarea.findByIdAndUpdate(id, {
+      nombre,
+      descripcion,
+      responsable: responsable._id
+    }, { new: true });
+
+    if (!tareaActualizada) {
       return res.status(404).json({ error: 'Tarea no encontrada' });
     }
 
-    res.json(tarea);
+    res.json(tareaActualizada);
   } catch (error) {
     console.error('Error al actualizar la tarea:', error);
     res.status(500).json({ error: 'Error al actualizar la tarea' });
   }
 };
+
 
 exports.eliminarTarea = async (req, res) => {
   try {
@@ -55,13 +71,25 @@ exports.obtenerTareaPorId = async (req, res) => {
 
 exports.obtenerTodasLasTareas = async (req, res) => {
   try {
-    const tareas = await Tarea.find();
-    res.json(tareas);
+
+    const tareas = await Tarea.find().populate('responsable');
+
+    const tareasFormateadas = tareas.map(tarea => ({
+      _id: tarea._id,
+      nombre: tarea.nombre,
+      descripcion: tarea.descripcion,
+      responsableNombre: tarea.responsable ? tarea.responsable.nombre : 'Responsable no especificado',
+      responsableApellido: tarea.responsable ? tarea.responsable.apellido : 'Responsable no especificado'
+    }));
+
+    res.json(tareasFormateadas);
   } catch (error) {
     console.error('Error al obtener las tareas:', error);
     res.status(500).json({ error: 'Error al obtener las tareas' });
   }
 };
+
+
 
 exports.crearTarea = async (req, res) => {
   try {
