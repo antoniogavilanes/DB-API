@@ -1,20 +1,37 @@
-
 const Tarea = require('../../models/tarea.model');
-
+const Responsable = require('../../models/responsable.model');
 
 exports.actualizarTarea = async (req, res) => {
   try {
     const { id } = req.params;
-    const tareaActualizada = req.body; 
+    const { nombre, descripcion, responsableNombre, responsableApellido } = req.body;
 
+    // Verificar si los campos del responsable están presentes en el cuerpo de la solicitud
+    if (!nombre || !descripcion || !responsableNombre || !responsableApellido) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
 
-    const tarea = await Tarea.findByIdAndUpdate(id, tareaActualizada, { new: true });
+    // Buscar el responsable por nombre y apellido
+    let responsable = await Responsable.findOne({ nombre: responsableNombre, apellido: responsableApellido });
 
-    if (!tarea) {
+    // Si el responsable no existe, crearlo
+    if (!responsable) {
+      responsable = new Responsable({ nombre: responsableNombre, apellido: responsableApellido });
+      await responsable.save();
+    }
+
+    // Actualizar la tarea con el ID del responsable
+    const tareaActualizada = await Tarea.findByIdAndUpdate(id, {
+      nombre,
+      descripcion,
+      responsable: responsable._id // Actualizar con el ID del responsable
+    }, { new: true });
+
+    if (!tareaActualizada) {
       return res.status(404).json({ error: 'Tarea no encontrada' });
     }
 
-    res.json(tarea);
+    res.json(tareaActualizada);
   } catch (error) {
     console.error('Error al actualizar la tarea:', error);
     res.status(500).json({ error: 'Error al actualizar la tarea' });
@@ -25,7 +42,6 @@ exports.actualizarTarea = async (req, res) => {
 exports.eliminarTarea = async (req, res) => {
   try {
     const { id } = req.params;
-
 
     const tarea = await Tarea.findByIdAndDelete(id);
 
@@ -40,11 +56,9 @@ exports.eliminarTarea = async (req, res) => {
   }
 };
 
-
 exports.obtenerTareaPorId = async (req, res) => {
   try {
     const { id } = req.params;
-
 
     const tarea = await Tarea.findById(id);
 
@@ -59,13 +73,20 @@ exports.obtenerTareaPorId = async (req, res) => {
   }
 };
 
-
 exports.obtenerTodasLasTareas = async (req, res) => {
   try {
 
-    const tareas = await Tarea.find();
+    const tareas = await Tarea.find().populate('responsable');
 
-    res.json(tareas);
+    const tareasFormateadas = tareas.map(tarea => ({
+      _id: tarea._id,
+      nombre: tarea.nombre,
+      descripcion: tarea.descripcion,
+      responsableNombre: tarea.responsable ? tarea.responsable.nombre : 'Responsable no especificado',
+      responsableApellido: tarea.responsable ? tarea.responsable.apellido : 'Responsable no especificado'
+    }));
+
+    res.json(tareasFormateadas);
   } catch (error) {
     console.error('Error al obtener las tareas:', error);
     res.status(500).json({ error: 'Error al obtener las tareas' });
@@ -76,19 +97,24 @@ exports.obtenerTodasLasTareas = async (req, res) => {
 
 exports.crearTarea = async (req, res) => {
   try {
-    const { nombre, descripcion } = req.body;
+    const { nombre, descripcion, responsableNombre, responsableApellido } = req.body;
 
-
-    if (!nombre || !descripcion) {
-      return res.status(400).json({ error: 'El nombre y la descripción son obligatorios' });
+    if (!nombre || !descripcion || !responsableNombre || !responsableApellido) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
+    let responsable = await Responsable.findOne({ nombre: responsableNombre, apellido: responsableApellido });
 
-    const tarea = await Tarea.create({ nombre, descripcion });
+    if (!responsable) {
+      responsable = new Responsable({ nombre: responsableNombre, apellido: responsableApellido });
+      await responsable.save();
+    }
 
-    res.status(201).json({ mensaje: 'Tarea creada correctamente', tarea });
+    const nuevaTarea = await Tarea.create({ nombre, descripcion, responsable: responsable._id });
+
+    res.status(201).json({ mensaje: 'Tarea creada correctamente', tarea: nuevaTarea });
   } catch (error) {
     console.error('Error al crear la tarea:', error);
     res.status(500).json({ error: 'Error al crear la tarea' });
   }
-}
+};

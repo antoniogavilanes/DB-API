@@ -12,44 +12,59 @@
 </head>
 
 <body>
-    <h1>API Administrador de Tareas</h1>
+    <h1 id="tituloPrincipal">API Administrador de Tareas</h1>
     <div class="botonNuevaTarea">
         <button id="btnMostrarFormulario"><span>&#43;</span> Añadir Nueva Tarea</button>
     </div>
 
     <div id="formularioNuevaTarea" style="display: none;">
-        <h1>Crear Nueva Tarea</h1>
-        <form id="formCrearTarea">
-            <label for="nombre">Título:</label>
-            <input type="text" id="nombre" name="nombre" required>
-            <label for="descripcion">Descripción:</label>
-            <input type="text" id="descripcion" name="descripcion" required>
-            <button type="submit">Agregar Tarea <i class="fa-solid fa-floppy-disk"></i></button>
-            <button type="button" id="btnCancelar">Cancelar <i class="fa-solid fa-ban"></i></button>
-        </form>
+        <div class="formularioNuevaTarea1">
+            <h1>Crear Nueva Tarea</h1>
+            <form id="formCrearTarea">
+                <label for="nombre">Título:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" required>
+                <label for="responsable">
+                    <h2>Responsable de la tarea</h2>
+                </label>
+                <label for="responsableNombre">Nombre:</label>
+                <input type="text" id="responsableNombre" name="responsableNombre" required>
+                <label for="responsableApellido">Apellido:</label>
+                <input type="text" id="responsableApellido" name="responsableApellido" required>
+                <button type="submit">Agregar Tarea <i class="fa-solid fa-floppy-disk"></i></button>
+                <button type="button" id="btnCancelar">Cancelar <i class="fa-solid fa-ban"></i></button>
+            </form>
+        </div>
     </div>
 
     <div id="formularioEditarTarea" style="display: none;">
-        <h1>Editar Tarea</h1>
-        <form id="formEditarTarea">
-            <label for="nombreEditar">Título:</label>
-            <input type="text" id="nombreEditar" name="nombreEditar" required>
-            <label for="descripcionEditar">Descripción:</label>
-            <input type="text" id="descripcionEditar" name="descripcionEditar" required>
-            <button type="submit">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
-            <button type="button" id="btnCancelarEdicion">Cancelar <i class="fa-solid fa-ban"></i></button>
-        </form>
+        <div class="formularioEditarTarea1">
+            <h1>Editar Tarea</h1>
+            <form id="formEditarTarea">
+                <label for="nombreEditar">Título:</label>
+                <input type="text" id="nombreEditar" name="nombreEditar" required>
+                <label for="descripcionEditar">Descripción:</label>
+                <input type="text" id="descripcionEditar" name="descripcionEditar" required>
+                <label for="responsable">
+                    <h2>Responsable de la tarea</h2>
+                </label>
+                <label for="responsableNombre">Nombre:</label>
+                <input type="text" id="responsableNombre" name="responsableNombre" required>
+                <label for="responsableApellido">Apellido:</label>
+                <input type="text" id="responsableApellido" name="responsableApellido" required>
+                <button type="submit">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
+                <button type="button" id="btnCancelarEdicion">Cancelar <i class="fa-solid fa-ban"></i></button>
+            </form>
+        </div>
     </div>
 
     <div id="contenedorTarjetas" class="contenedor-tarjetas">
-        <!-- Aquí se mostrarán las tarjetas de las tareas -->
     </div>
 
     <script src="https://kit.fontawesome.com/6e97ee2de1.js" crossorigin="anonymous"></script>
 
     <script>
-
-
         function mostrarFormularioNuevaTarea() {
             document.getElementById('formularioNuevaTarea').style.display = 'block';
         }
@@ -87,8 +102,12 @@
                 contenedorTarjetas.innerHTML = '';
                 tareas.forEach(tarea => {
                     const tarjeta = `
+                    <div class="tarjeta1">
                         <div class="tarjeta">
                             <h3 style="text-align: center;">${tarea.nombre}</h3>
+                            <div class="responsableTarjeta">
+                                <p><b>Responsable:</b> ${tarea.responsableNombre} ${tarea.responsableApellido}</p>
+                            </div>
                             <div class="descpicionTarjeta">
                             <p style="text-align: justify;">${tarea.descripcion}</p>
                             </div>
@@ -97,6 +116,7 @@
                                 <button onclick="eliminarTarea('${tarea._id}')">Eliminar  <i class="fas fa-trash"></i></button>
                             </div>
                         </div>
+                    </div>
                     `;
                     contenedorTarjetas.innerHTML += tarjeta;
                 });
@@ -126,6 +146,8 @@
             const formData = new FormData(event.target);
             const nombre = formData.get('nombre');
             const descripcion = formData.get('descripcion');
+            const responsableNombre = formData.get('responsableNombre');
+            const responsableApellido = formData.get('responsableApellido');
 
             try {
                 const response = await fetch('/tareas', {
@@ -133,7 +155,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ nombre, descripcion })
+                    body: JSON.stringify({ nombre, descripcion, responsableNombre, responsableApellido }) // Corregido
                 });
                 if (!response.ok) {
                     throw new Error('No se pudo agregar la tarea');
@@ -151,25 +173,25 @@
             const formData = new FormData(event.target);
             const nombre = formData.get('nombreEditar');
             const descripcion = formData.get('descripcionEditar');
+            const responsableNombre = formData.get('responsableNombre');
+            const responsableApellido = formData.get('responsableApellido');
             const id = event.target.getAttribute('data-id');
-
             try {
                 const response = await fetch(`/tareas/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ nombre, descripcion })
+                    body: JSON.stringify({ nombre, descripcion, responsableNombre, responsableApellido }) // Corregido
                 });
                 if (!response.ok) {
-                    throw new Error('No se pudo actualizar la tarea');
+                    throw new Error('No se pudo editar la tarea');
                 }
-                alert('Tarea actualizada correctamente');
-                ocultarFormularioEditarTarea();
-                mostrarTareas();
+                alert('Tarea editada correctamente');
+                window.location.href = '/';
             } catch (error) {
                 console.error(error);
-                alert('Error al actualizar la tarea');
+                alert('Error al editar la tarea');
             }
         });
 
