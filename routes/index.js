@@ -1,31 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-
-const tareasRouter = require('./tareas');
-router.use('/tareas', tareasRouter);
+const proyectosRouter = require('./proyectos');
+router.use('/proyectos', proyectosRouter);
 
 module.exports = router;
-
-
 const express = require('express');
 
+const proyectoController = require('../modules/proyecto/proyecto.controller');
 
-const tareaController = require('../modules/tarea/tarea.controller');
+// Rutas para proyectos
+router.get('/', proyectoController.obtenerTodosLosProyectos);
+router.post('/', proyectoController.crearProyecto);
+router.get('/:id', proyectoController.obtenerProyectoPorId);
+router.put('/:id', proyectoController.actualizarProyecto);
+router.delete('/:id', proyectoController.eliminarProyecto);
 
-
-router.get('/', tareaController.obtenerTodasLasTareas);
-
-
-router.post('/', tareaController.crearTarea);
-
-
-router.get('/:id', tareaController.obtenerTareaPorId);
-
-
-router.put('/:id', tareaController.actualizarTarea);
-
-
-router.delete('/:id', tareaController.eliminarTarea);
 
 module.exports = router;
