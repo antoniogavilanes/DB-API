@@ -1,3 +1,33 @@
+
+.kanban-board {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.column {
+    background-color: #f4f4f4;
+    width: 30%;
+    min-height: 300px;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.column h2 {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dragging {
+    opacity: 0.5;
+}
+
 .table {
 
     display: table;
@@ -34,14 +64,17 @@
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: grab;
 }
 
 .card p {
     margin: 0;
+    cursor: grab;
 }
 
 .card:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: grab;
 }
 
 .column {

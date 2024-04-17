@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi API Tareas</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+
+<body>
+    <h1 id="tituloPrincipal">API Administrador de Tareas</h1>
+    <div class="botonNuevaTarea">
+        <button id="btnMostrarFormulario"><span>&#43;</span> Añadir Nueva Tarea</button>
+    </div>
+
+    <div id="formularioNuevaTarea" style="display: none;">
+        <div class="formularioNuevaTarea1">
+            <h1>Crear Nueva Tarea</h1>
+            <form id="formCrearTarea">
+                <label for="nombre">Título:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <label for="fechaEntrega">Fecha de entrega:</label>
+                <input type="date" id="fechaEntrega" name="fechaEntrega" required>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" required>
+                <label for="responsable">
+                    <h2>Responsable de la tarea</h2>
+                </label>
+                <label for="responsableNombre">Nombre:</label>
+                <input type="text" id="responsableNombre" name="responsableNombre" required>
+                <label for="responsableApellido">Apellido:</label>
+                <input type="text" id="responsableApellido" name="responsableApellido" required>
+                <button type="submit">Agregar Tarea <i class="fa-solid fa-floppy-disk"></i></button>
+                <button type="button" id="btnCancelar">Cancelar <i class="fa-solid fa-ban"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div id="formularioEditarTarea" style="display: none;">
+        <div class="formularioEditarTarea1">
+            <h1>Editar Tarea</h1>
+            <form id="formEditarTarea">
+                <label for="nombreEditar">Título:</label>
+                <input type="text" id="nombreEditar" name="nombreEditar" required>
+                <label for="fechaEntrega">Fecha de entrega:</label>
+                <input type="date" id="fechaEntrega" name="fechaEntrega" required>
+                <label for="descripcionEditar">Descripción:</label>
+                <input type="text" id="descripcionEditar" name="descripcionEditar" required>
+                <label for="responsable">
+                    <h2>Responsable de la tarea</h2>
+                </label>
+                <label for="responsableNombre">Nombre:</label>
+                <input type="text" id="responsableNombre" name="responsableNombre" required>
+                <label for="responsableApellido">Apellido:</label>
+                <input type="text" id="responsableApellido" name="responsableApellido" required>
+                <button type="submit">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
+                <button type="button" id="btnCancelarEdicion">Cancelar <i class="fa-solid fa-ban"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div id="contenedorTarjetas" class="contenedor-tarjetas">
+        <div class="table" id="table">
+        </div>
+        <div>
+            <div class="row tarjeta1" draggable="true">
+                <div class="cell tarjeta">
+                    <h3 style="text-align: center;">Tarea 1</h3>
+                    <div class="responsableTarjeta">
+                        <p><b>Responsable:</b> Nombre Apellido</p>
+                    </div>
+                    <div class="fechaEntrega">
+                        <p><b>Fecha de entrega:</b> 2021-10-10</p>
+                    </div>
+                    <div class="descpicion" style="text-align: justify;">
+                        <p>Descripción de la tarea 1</p>
+                    </div>
+                    <div class="acciones">
+                        <button onclick="mostrarFormularioEditarTarea('1', 'Tarea 1', 'Descripción de la tarea 1', 'Nombre', 'Apellido', '2021-10-10')">Editar <i class="fas fa-edit"></i></button>
+                        <button onclick="eliminarTarea('1')">Eliminar <i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row tarjeta1" draggable="true">
+                <div class="cell tarjeta">
+                    <h3 style="text-align: center;">Tarea 2</h3>
+                    <div class="responsableTarjeta">
+                        <p><b>Responsable:</b> Nombre Apellido</p>
+                    </div>
+                    <div class="fechaEntrega">
+                        <p><b>Fecha de entrega:</b> 2021-10-10</p>
+                    </div>
+                    <div class="descpicion">
+                        <p style="text-align: justify;">Descripción de la tarea 2</p>
+                    </div>
+                    <div class="acciones">
+                        <button onclick="mostrarFormularioEditarTarea('2', 'Tarea 2', 'Descripción de la tarea 2', 'Nombre', 'Apellido', '2021-10-10')">Editar <i class="fas fa-edit"></i></button>
+                        <button onclick="eliminarTarea('2')">Eliminar <i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+
+    <script src="https://kit.fontawesome.com/6e97ee2de1.js" crossorigin="anonymous"></script>
+
+    <script>
+        function mostrarFormularioNuevaTarea() {
+            document.getElementById('formularioNuevaTarea').style.display = 'block';
+        }
+
+        function ocultarFormularioNuevaTarea() {
+            document.getElementById('formularioNuevaTarea').style.display = 'none';
+        }
+
+        function mostrarFormularioEditarTarea(id, nombre, descripcion, responsableNombre, responsableApellido, fechaEntrega) {
+            document.getElementById('formularioEditarTarea').style.display = 'block';
+            document.getElementById('nombreEditar').value = nombre;
+            document.getElementById('descripcionEditar').value = descripcion;
+            document.getElementById('responsableNombre').value = responsableNombre;
+            document.getElementById('responsableApellido').value = responsableApellido;
+            document.getElementById('fechaEntrega').value = fechaEntrega;
+            document.getElementById('formEditarTarea').setAttribute('data-id', id);
+        }
+
+        function ocultarFormularioEditarTarea() {
+            document.getElementById('formularioEditarTarea').style.display = 'none';
+        }
+
+        document.getElementById('btnMostrarFormulario').addEventListener('click', mostrarFormularioNuevaTarea);
+
+        document.getElementById('btnCancelar').addEventListener('click', ocultarFormularioNuevaTarea);
+
+        document.getElementById('btnCancelarEdicion').addEventListener('click', ocultarFormularioEditarTarea);
+
+        async function mostrarTareas() {
+            try {
+                const response = await fetch('/tareas');
+                if (!response.ok) {
+                    throw new Error('Error al obtener las tareas');
+                }
+                const tareas = await response.json();
+                const table = document.getElementById('table');
+                table.innerHTML = '';
+                tareas.forEach(tarea => {
+
+                    const fechaEntregaISO = new Date(tarea.fechaEntrega).toISOString();
+                    const fechaEntrega = fechaEntregaISO.split('T')[0];
+                    const tarjeta = `
+                        <div class="row tarjeta1" draggable="true">
+                            <div class="cell tarjeta" >
+                                <h3 style="text-align: center;">${tarea.nombre}</h3>
+                                <div class="responsableTarjeta">
+                                    <p><b>Responsable:</b> ${tarea.responsableNombre} ${tarea.responsableApellido}</p>
+                                </div>
+                                <div class="fechaEntrega">
+                                    <p><b>Fecha de entrega:</b> ${fechaEntrega}</p>
+                                </div>
+                                <div class="descpicionTarjeta">
+                                    <p style="text-align: justify;">${tarea.descripcion}</p>
+                                </div>
+                                <div class="acciones">
+                                    <button onclick="mostrarFormularioEditarTarea('${tarea._id}', '${tarea.nombre}', '${tarea.descripcion}')">Editar <i class="fas fa-edit"></i></button>
+                                    <button onclick="eliminarTarea('${tarea._id}')">Eliminar  <i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    table.innerHTML += tarjeta;
+                });
+            } catch (error) {
+                console.error(error);
+                alert('Error al obtener las tareas');
+            }
+        }
+
+        async function eliminarTarea(id) {
+            try {
+                const response = await fetch(`/tareas/${id}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    throw new Error('Error al eliminar la tarea');
+                }
+                mostrarTareas();
+            } catch (error) {
+                console.error(error);
+                alert('Error al eliminar la tarea');
+            }
+        }
+
+        document.getElementById('formCrearTarea').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const nombre = formData.get('nombre');
+            const descripcion = formData.get('descripcion');
+            const responsableNombre = formData.get('responsableNombre');
+            const responsableApellido = formData.get('responsableApellido');
+            const fechaEntrega = formData.get('fechaEntrega');
+
+            const fechaRegex = /^\d{4}-\d{2}-\d{2}$/;
+            if (!fechaRegex.test(fechaEntrega)) {
+                alert('Formato de fecha no válido. Por favor, utiliza el formato YYYY-MM-DD.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/tareas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, descripcion, responsableNombre, responsableApellido, fechaEntrega })
+                });
+                if (!response.ok) {
+                    throw new Error('No se pudo agregar la tarea');
+                }
+                alert('Tarea agregada correctamente');
+                window.location.href = '/';
+            } catch (error) {
+                console.error(error);
+                alert('Error al agregar la tarea');
+            }
+        });
+
+        document.getElementById('formEditarTarea').addEventListener('submit', async (event) => {
+
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const nombre = formData.get('nombreEditar');
+            const descripcion = formData.get('descripcionEditar');
+            const responsableNombre = formData.get('responsableNombre');
+            const responsableApellido = formData.get('responsableApellido');
+            const fechaEntrega = formData.get('fechaEntrega');
+            const id = event.target.getAttribute('data-id');
+
+            const fechaRegex = /^\d{4}-\d{2}-\d{2}$/;
+            if (!fechaRegex.test(fechaEntrega)) {
+                alert('Formato de fecha no válido. Por favor, utiliza el formato YYYY-MM-DD.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/tareas/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, descripcion, responsableNombre, responsableApellido, fechaEntrega })
+                });
+                if (!response.ok) {
+                    throw new Error('No se pudo editar la tarea');
+                }
+                alert('Tarea editada correctamente');
+                window.location.href = '/';
+            } catch (error) {
+                console.error(error);
+                alert('Error al editar la tarea');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const rows = document.querySelectorAll('.row');
+
+            rows.forEach(row => {
+                row.addEventListener('dragstart', () => {
+                    row.classList.add('dragging');
+                });
+
+                row.addEventListener('dragend', () => {
+                    row.classList.remove('dragging');
+                });
+
+                row.addEventListener('dragover', e => {
+                    e.preventDefault();
+                });
+
+                row.addEventListener('drop', e => {
+                    e.preventDefault();
+                    const rowDragged = document.querySelector('.row.dragging');
+                    if (rowDragged !== null) {
+                        const rowParent = rowDragged.parentElement;
+                        const rowDropped = e.target.closest('.row');
+                        if (rowDropped && rowDropped !== rowDragged) {
+                            rowParent.insertBefore(rowDragged, rowDropped.nextSibling);
+                        } else {
+                            rowParent.appendChild(rowDragged);
+                        }
+                    }
+                });
+            });
+        });
+
+        mostrarTareas();
+
+    </script>
+
+</body>
+
+</html>
