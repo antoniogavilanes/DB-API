@@ -4,9 +4,9 @@ const Responsable = require('../../models/responsable.model');
 exports.actualizarTarea = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, descripcion, responsableNombre, responsableApellido } = req.body;
+    const { nombre, descripcion, responsableNombre, responsableApellido, fechaEntrega } = req.body;
 
-    if (!nombre || !descripcion || !responsableNombre || !responsableApellido) {
+    if (!nombre || !descripcion || !responsableNombre || !responsableApellido || !fechaEntrega) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
@@ -20,7 +20,8 @@ exports.actualizarTarea = async (req, res) => {
     const tareaActualizada = await Tarea.findByIdAndUpdate(id, {
       nombre,
       descripcion,
-      responsable: responsable._id
+      responsable: responsable._id,
+      fechaEntrega
     }, { new: true });
 
     if (!tareaActualizada) {
@@ -33,7 +34,6 @@ exports.actualizarTarea = async (req, res) => {
     res.status(500).json({ error: 'Error al actualizar la tarea' });
   }
 };
-
 
 exports.eliminarTarea = async (req, res) => {
   try {
@@ -79,7 +79,8 @@ exports.obtenerTodasLasTareas = async (req, res) => {
       nombre: tarea.nombre,
       descripcion: tarea.descripcion,
       responsableNombre: tarea.responsable ? tarea.responsable.nombre : 'Responsable no especificado',
-      responsableApellido: tarea.responsable ? tarea.responsable.apellido : 'Responsable no especificado'
+      responsableApellido: tarea.responsable ? tarea.responsable.apellido : 'Responsable no especificado',
+      fechaEntrega: tarea.fechaEntrega
     }));
 
     res.json(tareasFormateadas);
@@ -93,9 +94,9 @@ exports.obtenerTodasLasTareas = async (req, res) => {
 
 exports.crearTarea = async (req, res) => {
   try {
-    const { nombre, descripcion, responsableNombre, responsableApellido } = req.body;
+    const { nombre, descripcion, responsableNombre, responsableApellido, fechaEntrega } = req.body;
 
-    if (!nombre || !descripcion || !responsableNombre || !responsableApellido) {
+    if (!nombre || !descripcion || !responsableNombre || !responsableApellido || !fechaEntrega) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
@@ -106,7 +107,7 @@ exports.crearTarea = async (req, res) => {
       await responsable.save();
     }
 
-    const nuevaTarea = await Tarea.create({ nombre, descripcion, responsable: responsable._id });
+    const nuevaTarea = await Tarea.create({ nombre, descripcion, responsable: responsable._id, fechaEntrega });
 
     res.status(201).json({ mensaje: 'Tarea creada correctamente', tarea: nuevaTarea });
   } catch (error) {
