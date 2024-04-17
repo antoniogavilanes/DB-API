@@ -1,0 +1,132 @@
+[{
+  "_id": {
+    "$oid": "66139a782faede1f3891c424"
+  },
+  "nombre": "Creación de la primera versión de la API",
+  "descripcion": "El responsable debe crear una primera versión de la API de administrador de tareas.",
+  "responsable": "66139a782faede1f3891c422",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66139ac22faede1f3891c42b"
+  },
+  "nombre": "Migración de Flask a Express",
+  "descripcion": "Ya que la primera versión se desarrollo usando Flask, el responsable debe adaptar la API a la estructura Express dada por el profesor.",
+  "responsable": "66139ac22faede1f3891c429",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66139b542faede1f3891c430"
+  },
+  "nombre": "Desarrollar la lógica y el backend de la API ",
+  "descripcion": "El responsable debe desarrollar el backend y la lógica para hacer la conexión correctamente con MongoDB con la nueva estructura que se realizó en la tarea anterior.",
+  "responsable": "66139a782faede1f3891c422",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66139bdf2faede1f3891c435"
+  },
+  "nombre": "Desarrollo del Frontend (Vistas EJS)",
+  "descripcion": "El responsable debe desarrollar las vistas de la API. Recordar usar los métodos post, put, delete y get, para poder interactuar con las tareas",
+  "responsable": "66139ac22faede1f3891c429",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66139d322faede1f3891c446"
+  },
+  "nombre": "Desarrollo del Frontend (Estilos CSS)",
+  "descripcion": "Desarrollar los estilos para mejorar la interfaz de la API, creando botones para crear tareas, y dentro de las tareas botones de editar y eliminar.",
+  "responsable": "66139a782faede1f3891c422",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66139dda2faede1f3891c44b"
+  },
+  "nombre": "Añadir nueva colección de Responsables",
+  "descripcion": "Añadir la funcionalidad de agregarle un responsable a las tareas, y que estos responsables se guarden en una nueva colección en MongoDB así como las tareas. Si se crea una tarea y se usa un responsable ya creado no se deben duplicar.",
+  "responsable": "66139a782faede1f3891c422",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66139ec22faede1f3891c454"
+  },
+  "nombre": "Últimos ajustes a los estilos y las vistas",
+  "descripcion": "Se deben ajustar las vistas y los estilos dada la nueva funcionalidad de responsables. Al mostrar las tareas también se debe mostrar el responsable de dicha tarea. También se deben hacer unos últimos ajustes a la paleta de colores en el CSS.",
+  "responsable": "66139ac22faede1f3891c429",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6613a02c2faede1f3891c459"
+  },
+  "nombre": "Exportar la base de datos de MongoDB",
+  "descripcion": "El responsable debe exportar la base de datos para poder subirla al repositorio junto con la API.",
+  "responsable": "66139a782faede1f3891c422",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6613a0a22faede1f3891c45e"
+  },
+  "nombre": "Hacer push a la rama main del repositorio",
+  "descripcion": "Ya que cada uno de los colaboradores tenia su rama de trabajo, en el cual se iban agregando los cambios, el responsable de esta tarea debe hacer push de la última versión de la API a la rama main.",
+  "responsable": "66139ac22faede1f3891c429",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6613a1042faede1f3891c463"
+  },
+  "nombre": "Entrega del proyecto finalizado",
+  "descripcion": "El responsable deberá subir el archivo .txt con el enlace al repositorio.",
+  "responsable": "66139ac22faede1f3891c429",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-05-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6613a15a2faede1f3891c46a"
+  },
+  "nombre": "Revisión y Correcciones",
+  "descripcion": "El profesor revisará el trabajo realizado.",
+  "responsable": "6613a15a2faede1f3891c468",
+  "__v": 0,
+  "fechaEntrega": {
+    "$date": "2024-04-25T00:00:00.000Z"
+  }
+}]

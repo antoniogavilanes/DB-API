@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "66139a782faede1f3891c422"
+  },
+  "nombre": "Diego",
+  "apellido": "Jiménez",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66139ac22faede1f3891c429"
+  },
+  "nombre": "Antonio",
+  "apellido": "Gavilanes",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6613a15a2faede1f3891c468"
+  },
+  "nombre": "Lázaro",
+  "apellido": "Hernández",
+  "__v": 0
+}]
