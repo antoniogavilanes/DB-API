@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi API Tareas</title>
     <link rel="stylesheet" href="/css/estilos.css">
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -64,6 +61,46 @@
     </div>
 
     <div id="contenedorTarjetas" class="contenedor-tarjetas">
+        <div class="table" id="table">
+        </div>
+        <div>
+            <div class="row tarjeta1" draggable="true">
+                <div class="cell tarjeta">
+                    <h3 style="text-align: center;">Tarea 1</h3>
+                    <div class="responsableTarjeta">
+                        <p><b>Responsable:</b> Nombre Apellido</p>
+                    </div>
+                    <div class="fechaEntrega">
+                        <p><b>Fecha de entrega:</b> 2021-10-10</p>
+                    </div>
+                    <div class="descpicion" style="text-align: justify;">
+                        <p>Descripción de la tarea 1</p>
+                    </div>
+                    <div class="acciones">
+                        <button onclick="mostrarFormularioEditarTarea('1', 'Tarea 1', 'Descripción de la tarea 1', 'Nombre', 'Apellido', '2021-10-10')">Editar <i class="fas fa-edit"></i></button>
+                        <button onclick="eliminarTarea('1')">Eliminar <i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row tarjeta1" draggable="true">
+                <div class="cell tarjeta">
+                    <h3 style="text-align: center;">Tarea 2</h3>
+                    <div class="responsableTarjeta">
+                        <p><b>Responsable:</b> Nombre Apellido</p>
+                    </div>
+                    <div class="fechaEntrega">
+                        <p><b>Fecha de entrega:</b> 2021-10-10</p>
+                    </div>
+                    <div class="descpicion">
+                        <p style="text-align: justify;">Descripción de la tarea 2</p>
+                    </div>
+                    <div class="acciones">
+                        <button onclick="mostrarFormularioEditarTarea('2', 'Tarea 2', 'Descripción de la tarea 2', 'Nombre', 'Apellido', '2021-10-10')">Editar <i class="fas fa-edit"></i></button>
+                        <button onclick="eliminarTarea('2')">Eliminar <i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        
     </div>
 
     <script src="https://kit.fontawesome.com/6e97ee2de1.js" crossorigin="anonymous"></script>
@@ -104,33 +141,33 @@
                     throw new Error('Error al obtener las tareas');
                 }
                 const tareas = await response.json();
-                const contenedorTarjetas = document.getElementById('contenedorTarjetas');
-                contenedorTarjetas.innerHTML = '';
+                const table = document.getElementById('table');
+                table.innerHTML = '';
                 tareas.forEach(tarea => {
 
                     const fechaEntregaISO = new Date(tarea.fechaEntrega).toISOString();
                     const fechaEntrega = fechaEntregaISO.split('T')[0];
                     const tarjeta = `
-                    <div class="tarjeta1" draggable="true">
-                        <div class="tarjeta" >
-                            <h3 style="text-align: center;">${tarea.nombre}</h3>
-                            <div class="responsableTarjeta">
-                                <p><b>Responsable:</b> ${tarea.responsableNombre} ${tarea.responsableApellido}</p>
-                            </div>
-                            <div class="fechaEntrega">
-                                <p><b>Fecha de entrega:</b> ${fechaEntrega}</p>
-                            </div>
-                            <div class="descpicionTarjeta">
-                                <p style="text-align: justify;">${tarea.descripcion}</p>
-                            </div>
-                            <div class="acciones">
-                                <button onclick="mostrarFormularioEditarTarea('${tarea._id}', '${tarea.nombre}', '${tarea.descripcion}')">Editar <i class="fas fa-edit"></i></button>
-                                <button onclick="eliminarTarea('${tarea._id}')">Eliminar  <i class="fas fa-trash"></i></button>
+                        <div class="row tarjeta1" draggable="true">
+                            <div class="cell tarjeta" >
+                                <h3 style="text-align: center;">${tarea.nombre}</h3>
+                                <div class="responsableTarjeta">
+                                    <p><b>Responsable:</b> ${tarea.responsableNombre} ${tarea.responsableApellido}</p>
+                                </div>
+                                <div class="fechaEntrega">
+                                    <p><b>Fecha de entrega:</b> ${fechaEntrega}</p>
+                                </div>
+                                <div class="descpicionTarjeta">
+                                    <p style="text-align: justify;">${tarea.descripcion}</p>
+                                </div>
+                                <div class="acciones">
+                                    <button onclick="mostrarFormularioEditarTarea('${tarea._id}', '${tarea.nombre}', '${tarea.descripcion}')">Editar <i class="fas fa-edit"></i></button>
+                                    <button onclick="eliminarTarea('${tarea._id}')">Eliminar  <i class="fas fa-trash"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     `;
-                    contenedorTarjetas.innerHTML += tarjeta;
+                    table.innerHTML += tarjeta;
                 });
             } catch (error) {
                 console.error(error);
@@ -224,31 +261,32 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            const tarjetas = document.querySelectorAll('.tarjeta');
 
-            tarjetas.forEach(tarjeta => {
-                tarjeta.addEventListener('dragstart', () => {
-                    tarjeta.classList.add('dragging');
+            const rows = document.querySelectorAll('.row');
+
+            rows.forEach(row => {
+                row.addEventListener('dragstart', () => {
+                    row.classList.add('dragging');
                 });
 
-                tarjeta.addEventListener('dragend', () => {
-                    tarjeta.classList.remove('dragging');
+                row.addEventListener('dragend', () => {
+                    row.classList.remove('dragging');
                 });
 
-                tarjeta.addEventListener('dragover', e => {
+                row.addEventListener('dragover', e => {
                     e.preventDefault();
                 });
 
-                tarjeta.addEventListener('drop', e => {
+                row.addEventListener('drop', e => {
                     e.preventDefault();
-                    const tarjetaArrastrada = document.querySelector('.tarjeta.dragging');
-                    if (tarjetaArrastrada !== null) {
-                        const tarjetaPadre = tarjetaArrastrada.parentElement;
-                        const tarjetaSoltada = e.target.closest('.tarjeta');
-                        if (tarjetaSoltada && tarjetaSoltada !== tarjetaArrastrada) {
-                            tarjetaPadre.insertBefore(tarjetaArrastrada, tarjetaSoltada.nextSibling);
+                    const rowDragged = document.querySelector('.row.dragging');
+                    if (rowDragged !== null) {
+                        const rowParent = rowDragged.parentElement;
+                        const rowDropped = e.target.closest('.row');
+                        if (rowDropped && rowDropped !== rowDragged) {
+                            rowParent.insertBefore(rowDragged, rowDropped.nextSibling);
                         } else {
-                            tarjetaPadre.appendChild(tarjetaArrastrada);
+                            rowParent.appendChild(rowDragged);
                         }
                     }
                 });
@@ -256,7 +294,9 @@
         });
 
         mostrarTareas();
+
     </script>
+
 </body>
 
 </html>

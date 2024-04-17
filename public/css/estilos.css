@@ -1,3 +1,71 @@
+.table {
+
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.row {
+
+    display: table-row;
+}
+
+.cell {
+
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.tarjeta1:hover {
+
+    background-color: #f0f0f0;
+}
+
+.dragging {
+
+    opacity: 0.5;
+}
+
+.card {
+    background-color: #fff;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card p {
+    margin: 0;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.column {
+    flex: 1;
+    margin: 0 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.column h2 {
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,8 +73,8 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
 }
 
@@ -266,6 +334,8 @@ h1 {
 }
 
 .tarjeta1 {
+    margin-bottom: 10px;
+    cursor: pointer;
     border: none;
     border-radius: 10px;
     padding: 10px;
@@ -378,4 +448,28 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
     margin-bottom: 30px;
+}
+
+#tablero {
+    display: flex;
+}
+
+.seccion {
+    flex: 1;
+    min-width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+.tarjeton {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.tarjeton.dragging {
+    opacity: 0.5;
 }
