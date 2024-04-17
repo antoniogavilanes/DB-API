@@ -1,24 +1,11 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const tareaSchema = new mongoose.Schema({
-  nombre: {
-    type: String,
-    required: true
-  },
-  descripcion: {
-    type: String,
-    required: true
-  },
-  proyecto: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Proyecto'
-  },
-  responsable: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Responsable'
-  }
+const tareaSchema = new Schema({
+  nombre: { type: String, required: true },
+  descripcion: { type: String, required: true },
+  responsable: { type: Schema.Types.ObjectId, ref: 'Responsable' },
+  fechaEntrega: { type: Date, required: true }
 });
 
-const Tarea = mongoose.model('Tarea', tareaSchema);
-
-module.exports = Tarea;
+module.exports = mongoose.model('Tarea', tareaSchema);

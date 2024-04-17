@@ -14,10 +14,8 @@ const proyectoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Responsable'
   }],
-  tareas: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Tarea'
-  }]
+  fechaEntrega: { 
+    type: Date, required: true }
 });
 
 const Proyecto = mongoose.model('Proyecto', proyectoSchema);
