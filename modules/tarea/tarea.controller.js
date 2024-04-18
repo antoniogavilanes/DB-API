@@ -114,26 +114,4 @@ exports.crearTarea = async (req, res) => {
     console.error('Error al crear la tarea:', error);
     res.status(500).json({ error: 'Error al crear la tarea' });
   }
-
-  exports.obtenerTodosLosResponsables = async (req, res) => {
-    try {
-      const responsables = await Responsable.find();
-      res.json(responsables);
-    } catch (error) {
-      console.error('Error al obtener los responsables:', error);
-      res.status(500).json({ error: 'Error al obtener los responsables' });
-    }
-  };
-  
-  exports.obtenerTareasPorResponsable = async (req, res) => {
-    try {
-      const { responsableId } = req.params;
-      const tareas = await Tarea.find({ responsable: responsableId });
-      res.json(tareas);
-    } catch (error) {
-      console.error('Error al obtener las tareas por responsable:', error);
-      res.status(500).json({ error: 'Error al obtener las tareas por responsable' });
-    }
-  };
-  
 };

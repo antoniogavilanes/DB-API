@@ -16,9 +16,6 @@
     <div class="botonNuevaTarea">
         <button id="btnMostrarFormulario"><span>&#43;</span> Añadir Nueva Tarea</button>
     </div>
-    <button id="btnFiltrarResponsable">Filtrar por Responsable</button>
-    <div id="responsablesLista" style="display: none;">
-    </div>
 
     <div id="formularioNuevaTarea" style="display: none;">
         <div class="formularioNuevaTarea1">
@@ -63,7 +60,7 @@
                 <button type="submit">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
                 <button type="button" id="btnCancelarEdicion">Cancelar <i class="fa-solid fa-ban"></i></button>
             </form>
-        </div>
+        </div>  
     </div>
 
     <div id="contenedorTarjetas" class="contenedor-tarjetas">
@@ -127,7 +124,7 @@
                                 <p style="text-align: justify;">${tarea.descripcion}</p>
                             </div>
                             <div class="acciones">
-                                <button id="btnEditarTarea" onclick="mostrarFormularioEditarTarea('${tarea._id}', '${tarea.nombre}', '${tarea.descripcion}')">Editar <i class="fas fa-edit"></i></button>
+                                <button onclick="mostrarFormularioEditarTarea('${tarea._id}', '${tarea.nombre}', '${tarea.descripcion}')">Editar <i class="fas fa-edit"></i></button>
                                 <button onclick="eliminarTarea('${tarea._id}')">Eliminar  <i class="fas fa-trash"></i></button>
                             </div>
                         </div>
@@ -225,65 +222,6 @@
                 alert('Error al editar la tarea');
             }
         });
-
-        document.getElementById('btnFiltrarResponsable').addEventListener('click', async () => {
-            try {
-                const response = await fetch('/responsables');
-                if (!response.ok) {
-                    throw new Error('Error al obtener los responsables');
-                }
-                const responsables = await response.json();
-                const responsablesLista = document.getElementById('responsablesLista');
-                responsablesLista.innerHTML = '';
-                responsables.forEach(responsable => {
-                    const responsableItem = document.createElement('button');
-                    responsableItem.textContent = `${responsable.nombre} ${responsable.apellido}`;
-                    responsableItem.addEventListener('click', () => filtrarPorResponsable(responsable._id));
-                    responsablesLista.appendChild(responsableItem);
-                });
-                responsablesLista.style.display = 'block';
-            } catch (error) {
-                console.error(error);
-                alert('Error al obtener los responsables');
-            }
-        });
-
-        async function filtrarPorResponsable(responsableId) {
-            try {
-                const response = await fetch(`/tareas/responsable/${responsableId}`);
-                if (!response.ok) {
-                    throw new Error('Error al obtener las tareas');
-                }
-                const tareasFiltradas = await response.json();
-                const contenedorTarjetas = document.getElementById('contenedorTarjetas');
-                contenedorTarjetas.innerHTML = '';
-                tareasFiltradas.forEach(tarea => {
-                });
-            } catch (error) {
-                console.error(error);
-                alert('Error al filtrar las tareas por responsable');
-            }
-        }
-
-        document.addEventListener('click', function (event) {
-            const formularioNuevaTarea = document.getElementById('formularioNuevaTarea');
-            const formularioEditarTarea = document.getElementById('formularioEditarTarea');
-            const responsablesLista = document.getElementById('responsablesLista');
-
-            if (!formularioNuevaTarea.contains(event.target) && event.target.id !== 'btnMostrarFormulario') {
-                ocultarFormularioNuevaTarea();
-            }
-
-            if (!formularioEditarTarea.contains(event.target) && event.target.id !== 'btnEditarTarea') {
-                ocultarFormularioEditarTarea();
-            }
-
-            if (!responsablesLista.contains(event.target) && event.target.id !== 'btnFiltrarResponsable') {
-                responsablesLista.style.display = 'none';
-            }
-        });
-
-
 
         mostrarTareas();
     </script>
