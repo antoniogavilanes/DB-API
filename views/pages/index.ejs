@@ -60,7 +60,7 @@
                 <button type="submit">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
                 <button type="button" id="btnCancelarEdicion">Cancelar <i class="fa-solid fa-ban"></i></button>
             </form>
-        </div>
+        </div>  
     </div>
 
     <div id="contenedorTarjetas" class="contenedor-tarjetas">
@@ -111,7 +111,7 @@
                     const fechaEntregaISO = new Date(tarea.fechaEntrega).toISOString();
                     const fechaEntrega = fechaEntregaISO.split('T')[0];
                     const tarjeta = `
-                    <div class="tarjeta1" draggable="true">
+                    <div class="tarjeta1">
                         <div class="tarjeta" >
                             <h3 style="text-align: center;">${tarea.nombre}</h3>
                             <div class="responsableTarjeta">
@@ -221,38 +221,6 @@
                 console.error(error);
                 alert('Error al editar la tarea');
             }
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const tarjetas = document.querySelectorAll('.tarjeta');
-
-            tarjetas.forEach(tarjeta => {
-                tarjeta.addEventListener('dragstart', () => {
-                    tarjeta.classList.add('dragging');
-                });
-
-                tarjeta.addEventListener('dragend', () => {
-                    tarjeta.classList.remove('dragging');
-                });
-
-                tarjeta.addEventListener('dragover', e => {
-                    e.preventDefault();
-                });
-
-                tarjeta.addEventListener('drop', e => {
-                    e.preventDefault();
-                    const tarjetaArrastrada = document.querySelector('.tarjeta.dragging');
-                    if (tarjetaArrastrada !== null) {
-                        const tarjetaPadre = tarjetaArrastrada.parentElement;
-                        const tarjetaSoltada = e.target.closest('.tarjeta');
-                        if (tarjetaSoltada && tarjetaSoltada !== tarjetaArrastrada) {
-                            tarjetaPadre.insertBefore(tarjetaArrastrada, tarjetaSoltada.nextSibling);
-                        } else {
-                            tarjetaPadre.appendChild(tarjetaArrastrada);
-                        }
-                    }
-                });
-            });
         });
 
         mostrarTareas();
