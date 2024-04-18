@@ -4,6 +4,69 @@ body {
     padding: 0;
 }
 
+#btnFiltrarResponsable {
+    display: list-item;
+    background-color: #0d1321;
+    color: white;
+    position: absolute;
+    top: 182px;
+    right: 74px;
+    padding: 12px;
+    padding-right: 40px;
+    padding-left: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#btnFiltrarResponsable:hover {
+    background-color: #272e3d;
+}
+
+#responsablesLista {
+    display: list-item;
+    position: absolute;
+    top: 224px;
+    right: 74px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    z-index: 1000;
+    height: auto;
+    width: 200px;
+    border-radius: 8px;
+    padding: 2px;
+    margin-left: 25px;
+    width: 257px;
+    
+}
+
+#responsablesLista button {
+    display: block;
+    width: 100%; /* Cambiado a 100% */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+#responsablesLista button:hover {
+    background-color: #eeeeee;
+}
+
+#responsablesLista ul {
+    list-style:circle;
+    padding: 10;
+    
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -28,6 +91,7 @@ h1 {
     height: 670px;
     width: 530px;
     border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
 .formularioNuevaTarea1 {
@@ -43,6 +107,7 @@ h1 {
     height: 620px;
     width: 500px;
     border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
 #formularioNuevaTarea h2 {
@@ -66,6 +131,7 @@ h1 {
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 #formularioNuevaTarea #descripcion textarea {
@@ -76,6 +142,7 @@ h1 {
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 #formularioNuevaTarea button[type="submit"],
@@ -88,11 +155,13 @@ h1 {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 #formularioNuevaTarea button[type="submit"]:hover,
 #formularioNuevaTarea button[type="button"]:hover {
     background-color: #7c9082;
+    transition: background-color 0.3s ease;
 }
 
 #formularioNuevaTarea .descripcion {
@@ -119,6 +188,7 @@ h1 {
     height: 670px;
     width: 530px;
     border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
 .formularioEditarTarea1 {
@@ -134,6 +204,7 @@ h1 {
     height: 620px;
     width: 500px;
     border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
 #formularioEditarTarea h2 {
@@ -157,6 +228,7 @@ h1 {
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 #formularioEditarTarea button[type="submit"],
@@ -169,11 +241,13 @@ h1 {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 #formularioEditarTarea button[type="submit"]:hover,
 #formularioEditarTarea button[type="button"]:hover {
     background-color: #7c9082;
+    transition: background-color 0.3s ease;
 }
 
 #formEditarTarea {
@@ -185,6 +259,7 @@ h1 {
     border-radius: 10px;
     padding: 30px;
     margin-bottom: 20px;
+    transition: background-color 0.3s ease;
 }
 
 .form-container h2 {
@@ -208,6 +283,7 @@ h1 {
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .form-container button[type="submit"],
@@ -219,6 +295,7 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .form-container button[type="submit"]:hover,
@@ -242,10 +319,12 @@ h1 {
     margin-top: 20px;
     width: 250px;
     font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 .botonNuevaTarea button:hover {
     background-color: #6e7271;
+    transition: background-color 0.3s ease;
 }
 
 .descpicionTarjeta {
@@ -273,6 +352,7 @@ h1 {
     transition: transform 0.3s ease;
     background-color: #7c9082;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
 .tarjeta {
@@ -309,10 +389,12 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .button-container button:hover {
     background-color: #0056b3;
+    transition: background-color 0.3s ease;
 }
 
 .acciones {
@@ -332,18 +414,22 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     margin-right: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .acciones button:hover {
     background-color: #272e3d;
+    transition: background-color 0.3s ease;
 }
 
 .acciones button:last-child {
     background-color: #a71d31;
+    transition: background-color 0.3s ease;
 }
 
 .acciones button:last-child:hover {
     background-color: #db3a52;
+    transition: background-color 0.3s ease;
 }
 
 .acciones button:last-child {
@@ -352,20 +438,24 @@ h1 {
 
 .responsableTarjeta {
     margin-top: 10px;
-    padding: 5px;
+    padding: 1px;
+    padding-bottom: 10px;
     background-color: #c4ccca;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 .fechaEntrega {
     margin-right: 100px;
     background-color: #c4ccca;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 
 }
 
 body {
     background-color: #f9eae1;
+    transition: background-color 0.3s ease;
 }
 
 #tituloPrincipal {
@@ -378,6 +468,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
     margin-bottom: 30px;
+    transition: background-color 0.3s ease;
 }
 
 input[type="date"] {
@@ -388,6 +479,7 @@ input[type="date"] {
     font-size: 16px;
     width: 100%;
     margin-bottom: 10px;
+    transition: background-color 0.3s ease;
 }
 
 label[for="fechaEntrega"] {
