@@ -16,6 +16,9 @@
     <div class="botonNuevaTarea">
         <button id="btnMostrarFormulario"><span>&#43;</span> Añadir Nueva Tarea</button>
     </div>
+    <button id="btnFiltrarResponsable">Filtrar por Responsable</button>
+    <div id="responsablesLista" style="display: none;">
+    </div>
 
     <div id="formularioNuevaTarea" style="display: none;">
         <div class="formularioNuevaTarea1">
@@ -60,7 +63,7 @@
                 <button type="submit">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
                 <button type="button" id="btnCancelarEdicion">Cancelar <i class="fa-solid fa-ban"></i></button>
             </form>
-        </div>  
+        </div>
     </div>
 
     <div id="contenedorTarjetas" class="contenedor-tarjetas">
@@ -222,6 +225,48 @@
                 alert('Error al editar la tarea');
             }
         });
+
+        document.getElementById('btnFiltrarResponsable').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/responsables');
+                if (!response.ok) {
+                throw new Error('Error al obtener los responsables');
+                }
+                const responsables = await response.json();
+                const responsablesLista = document.getElementById('responsablesLista');
+                responsablesLista.innerHTML = '';
+                responsables.forEach(responsable => {
+                const responsableItem = document.createElement('button');
+                responsableItem.textContent = `${responsable.nombre} ${responsable.apellido}`;
+                responsableItem.addEventListener('click', () => filtrarPorResponsable(responsable._id));
+                responsablesLista.appendChild(responsableItem);
+                });
+                responsablesLista.style.display = 'block';
+            } catch (error) {
+                console.error(error);
+                alert('Error al obtener los responsables');
+            }
+            });
+
+            async function filtrarPorResponsable(responsableId) {
+            try {
+                const response = await fetch(`/tareas/responsable/${responsableId}`);
+                if (!response.ok) {
+                throw new Error('Error al obtener las tareas');
+                }
+                const tareasFiltradas = await response.json();
+                const contenedorTarjetas = document.getElementById('contenedorTarjetas');
+                contenedorTarjetas.innerHTML = '';
+                tareasFiltradas.forEach(tarea => {
+                // Renderizar tarjetas de tareas filtradas
+                // Código similar al de la función mostrarTareas(), pero con las tareas filtradas
+                });
+            } catch (error) {
+                console.error(error);
+                alert('Error al filtrar las tareas por responsable');
+            }
+            }
+
 
         mostrarTareas();
     </script>

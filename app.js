@@ -14,7 +14,10 @@ connectToDatabase();
 
 
 const tareasRouter = require('./routes/tareas');
+const responsablesRouter = require('./routes/responsables');
 app.use('/tareas', tareasRouter);
+app.use('/responsables', responsablesRouter);
+
 
 
 app.use(express.static(path.join(__dirname, 'public')));
