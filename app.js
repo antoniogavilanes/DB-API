@@ -14,9 +14,7 @@ connectToDatabase();
 
 
 const tareasRouter = require('./routes/tareas');
-const proyectosRouter = require('./routes/proyectos');
 app.use('/tareas', tareasRouter);
-app.use('/proyectos', proyectosRouter);
 
 
 app.use(express.static(path.join(__dirname, 'public')));
